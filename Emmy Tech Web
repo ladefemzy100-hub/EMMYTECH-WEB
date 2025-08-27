@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<label for="cvc">CVC</label>
+<input id="cvc" name="cvc" placeholder="123" required />
+</div>
+</div>
+<div class="space"></div>
+<div style="display:flex; gap:8px; justify-content:flex-end;">
+<button class="btn btn-ghost" value="cancel">Cancel</button>
+<button class="btn btn-primary" value="pay">Pay now</button>
+</div>
+</form>
+</dialog>
+
+
+<script>
+// Year
+document.getElementById('year').textContent = new Date().getFullYear();
+
+
+// Login dialog
+const loginBtn = document.getElementById('loginBtn');
+const loginDialog = document.getElementById('loginDialog');
+loginBtn?.addEventListener('click', () => loginDialog.showModal());
+loginDialog?.addEventListener('close', () => {
+if (loginDialog.returnValue === 'login') {
+alert('This is a demo. Connect a real auth provider to enable login.');
+}
+});
+
+
+// Checkout dialog
+const payBtn = document.getElementById('payBtn');
+const checkoutDialog = document.getElementById('checkoutDialog');
+function openCheckout(e) {
+const plan = e?.target?.dataset?.plan;
+if (plan) document.getElementById('plan').value = plan;
+checkoutDialog.showModal();
+}
+window.openCheckout = openCheckout;
+payBtn?.addEventListener('click', () => checkoutDialog.showModal());
+checkoutDialog?.addEventListener('close', () => {
+if (checkoutDialog.returnValue === 'pay') {
+alert('Payment simulated. Integrate Stripe/PayPal for real payments.');
+}
+});
+
+
+// Contact form (client-side only validation)
+const contactForm = document.getElementById('contactForm');
+const formNote = document.getElementById('formNote');
+contactForm?.addEventListener('submit', (e) => {
+// NOTE: Replace the action URL with a working endpoint to actually send emails.
+formNote.textContent = 'Submitting…';
+// Allow normal POST to proceed; if you want to keep it on-page, preventDefault and use fetch().
+// e.preventDefault();
+});
+</script>
+</body>
+</html>
